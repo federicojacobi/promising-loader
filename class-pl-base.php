@@ -184,9 +184,9 @@ class PL_Base {
 		global $wp_styles;
 		$this->discovered_styles[] = $handle;
 
-		$preload = apply_filters( 'pl_preload_css', [] );
+		$skip_preload = apply_filters( 'pl_skip_preload_css', [] );
 
-		if ( in_array( $handle, $preload, true ) ) {
+		if ( ! in_array( $handle, $skip_preload, true ) ) {
 			$this->all_styles['preload'][] = $handle;
 			$preload_tag_noscript = sprintf(
 				'<noscript>%s</noscript>',
