@@ -6,7 +6,7 @@
 class PL_Base {
 	private $learn_mode = true;
 
-	public const HANDLES_OPTION = 'pl_handles';
+	const HANDLES_OPTION = 'pl_handles';
 
 	private $script_definitions = [
 		'normal' => [],
@@ -171,6 +171,9 @@ class PL_Base {
 		if ( in_array( $handle, array_keys( $this->script_definitions['onload'] ), true ) ) {
 			$def['delay'] = empty( $this->script_definitions['onload'][ $handle ]['delay'] ) ? 0 : absint( $this->script_definitions['onload'][ $handle ]['delay'] );
 			$def['budget'] = empty( $this->script_definitions['onload'][ $handle ]['budget'] ) ? 0 : absint( $this->script_definitions['onload'][ $handle ]['budget'] );
+			$additional_dependencies = empty( $this->script_definitions['onload'][ $handle ]['additional_deps'] ) ? [] : $this->script_definitions['onload'][ $handle ]['additional_deps'];
+			$def['deps'] = array_merge( $def['deps'], $additional_dependencies );
+			
 		}
 		$this->enqueued_scripts['onload'][] = apply_filters( 'pl_script_def_onload', $def );
 
