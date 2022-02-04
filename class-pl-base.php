@@ -124,11 +124,13 @@ class PL_Base {
 			return str_replace( ' src=', ' async src=', $tag );
 		}
 
-		$obj = $wp_scripts->registered[ $handle ];
-		if ( null === $obj->ver ) {
-			$ver = '';
-		} else {
-			$ver = '?' . $obj->ver;
+		if ( false === strstr( $wp_scripts->registered[ $handle ]->src, '?' ) ) {
+			$obj = $wp_scripts->registered[ $handle ];
+			if ( null === $obj->ver ) {
+				$ver = '';
+			} else {
+				$ver = '?' . $obj->ver;
+			}
 		}
 
 		// Handle defer and normal.
